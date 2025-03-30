@@ -1,0 +1,29 @@
+.reel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.reel-strip {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.reel-sprite {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes spinDown {
+  0% {
+    /* Start halfway up */
+    transform: translateY(-50%);
+  }
+  100% {
+    /* Move to original position */
+    transform: translateY(0);
+  }
+}
