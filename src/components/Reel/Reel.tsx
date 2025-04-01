@@ -4,8 +4,8 @@ import { forwardRef, useImperativeHandle } from "react";
 import {
   REEL_BOTTOM_EDGE,
   REEL_EDGE_SIZE,
-  REEL_TOP_EDGE,
   REEL_SIZE,
+  REEL_TOP_EDGE,
   ReelRef,
   SPIN_DURATION,
   SYMBOL_SIZE,
@@ -21,7 +21,7 @@ const Reel = forwardRef<
 
   useImperativeHandle(ref, () => ({
     startSpin,
-    stopSpin
+    stopSpin,
   }));
 
   return (
@@ -60,7 +60,7 @@ const Reel = forwardRef<
         ))}
       </div>
 
-      <div 
+      <div
         className="bg-gradient-to-b from-black/50 via-black/10 to-transparent"
         style={{
           position: "absolute",
@@ -70,7 +70,7 @@ const Reel = forwardRef<
           height: `${REEL_EDGE_SIZE.height.toString()}px`,
         }}
       />
-      <div 
+      <div
         className="bg-gradient-to-t from-black/50 via-black/10 to-transparent"
         style={{
           position: "absolute",

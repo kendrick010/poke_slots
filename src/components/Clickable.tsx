@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent, ReactNode } from "react";
 
 type ClickableProps = {
   width: number;
@@ -13,10 +13,10 @@ export default function Clickable({
   height,
   onClick,
   children,
-  className = '',
+  className = "",
 }: ClickableProps) {
   return (
-    <div 
+    <div
       className={`cursor-pointer hover:bg-black/5 active:scale-95 transition-all ${className}`}
       style={{
         width: `${width.toString()}px`,

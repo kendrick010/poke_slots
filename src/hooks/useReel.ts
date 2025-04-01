@@ -36,7 +36,9 @@ export const useReel = (onStop?: (visibleSymbols: string[]) => void) => {
     const spriteCount = sprites.length / 2;
 
     for (let i = 0; i < VISIBLE_SPRITES; i++) {
-      const pos = Math.floor((stopPosition / SYMBOL_SIZE.height + i) % spriteCount);
+      const pos = Math.floor(
+        (stopPosition / SYMBOL_SIZE.height + i) % spriteCount,
+      );
       visibleIndices.push(pos);
     }
 

@@ -1,18 +1,18 @@
 .fade {
-    animation: dimEffect 0.75s ease-in-out;
-  }
-  
+  animation: dimEffect 0.75s ease-in-out;
+}
+
 @keyframes dimEffect {
-    0% {
-      opacity: 0;
-    }
-    25% {
-        opacity: 1;
-      }
-    75% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

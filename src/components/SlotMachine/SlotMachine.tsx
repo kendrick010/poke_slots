@@ -10,19 +10,19 @@ import { useRef, useState } from "react";
 
 import {
   CREDIT_SCREEN_POSITION,
-  LEFT_REEL_POSITION,
-  MIDDLE_REEL_POSITION,
-  PAYOUT_SCREEN_POSITION,
-  RIGHT_REEL_POSITION,
-  SLOT_MACHINE_SIZE,
-  REEL_BUTTON_SIZE,
-  LEFT_REEL_BUTTON_POSITION,
-  MIDDLE_REEL_BUTTON_POSITION,
-  RIGHT_REEL_BUTTON_POSITION,
   INSERT_COIN_BUTTON_POSITION,
   INSERT_COIN_BUTTON_SIZE,
+  LEFT_REEL_BUTTON_POSITION,
+  LEFT_REEL_POSITION,
+  MIDDLE_REEL_BUTTON_POSITION,
+  MIDDLE_REEL_POSITION,
+  PAYOUT_SCREEN_POSITION,
+  REEL_BUTTON_SIZE,
+  RIGHT_REEL_BUTTON_POSITION,
+  RIGHT_REEL_POSITION,
+  SLOT_MACHINE_SIZE,
   SPIN_BUTTON_POSITION,
-  SPIN_BUTTON_SIZE
+  SPIN_BUTTON_SIZE,
 } from "./slotMachineConfig";
 
 export default function SlotMachine() {
@@ -41,43 +41,52 @@ export default function SlotMachine() {
   const lightShineRef = useRef<LightShineRef>(null);
 
   const stopLeftReel = () => {
-	leftReelRef.current?.stopSpin();
+    leftReelRef.current?.stopSpin();
   };
 
   const stopMiddleReel = () => {
-	middleReelRef.current?.stopSpin();
+    middleReelRef.current?.stopSpin();
   };
 
   const stopRightReel = () => {
-	rightReelRef.current?.stopSpin();
+    rightReelRef.current?.stopSpin();
   };
 
   const spinReels = () => {
-	if (!leftReelSymbols.length && !middleReelSymbols.length && !rightReelSymbols.length) {
-		leftReelRef.current?.startSpin();
-		middleReelRef.current?.startSpin();
-		rightReelRef.current?.startSpin();
+    if (
+      !leftReelSymbols.length &&
+      !middleReelSymbols.length &&
+      !rightReelSymbols.length
+    ) {
+      leftReelRef.current?.startSpin();
+      middleReelRef.current?.startSpin();
+      rightReelRef.current?.startSpin();
 
-		// Prevents running again if already spinning
-		setLeftReelSymbols([""]);
-	}
+      // Prevents running again if already spinning
+      setLeftReelSymbols([""]);
+    }
   };
 
   const insertCoin = () => {
-	if (coinCredit > 0 && leftReelSymbols.length && middleReelSymbols.length && rightReelSymbols.length) {
-		setCoinCredit(coinCredit - 1);
-		setLeftReelSymbols(noSymbols);
-		setMiddleReelSymbols(noSymbols);
-		setRightReelSymbols(noSymbols);
-	}
+    if (
+      coinCredit > 0 &&
+      leftReelSymbols.length &&
+      middleReelSymbols.length &&
+      rightReelSymbols.length
+    ) {
+      setCoinCredit(coinCredit - 1);
+      setLeftReelSymbols(noSymbols);
+      setMiddleReelSymbols(noSymbols);
+      setRightReelSymbols(noSymbols);
+    }
   };
 
   useSlotMachineKeyControls({
-	stopLeftReel,
-	stopMiddleReel,
-	stopRightReel,
-	spinReels, 
-	insertCoin
+    stopLeftReel,
+    stopMiddleReel,
+    stopRightReel,
+    spinReels,
+    insertCoin,
   });
 
   return (
@@ -92,7 +101,6 @@ export default function SlotMachine() {
         backgroundPosition: "center",
       }}
     >
-
       {/* Score boards */}
       <div
         style={{
@@ -101,7 +109,7 @@ export default function SlotMachine() {
           top: `${CREDIT_SCREEN_POSITION.y.toString()}px`,
         }}
       >
-        <ScoreScreen startValue={coinCredit+1} endValue={coinCredit} />
+        <ScoreScreen startValue={coinCredit + 1} endValue={coinCredit} />
       </div>
       <div
         style={{
@@ -124,7 +132,7 @@ export default function SlotMachine() {
         <Reel
           ref={leftReelRef}
           onStop={(symbols) => {
-			setLeftReelSymbols(symbols);
+            setLeftReelSymbols(symbols);
           }}
         />
       </div>
@@ -138,7 +146,7 @@ export default function SlotMachine() {
         <Reel
           ref={middleReelRef}
           onStop={(symbols) => {
-			setMiddleReelSymbols(symbols);
+            setMiddleReelSymbols(symbols);
           }}
         />
       </div>
@@ -152,7 +160,7 @@ export default function SlotMachine() {
         <Reel
           ref={rightReelRef}
           onStop={(symbols) => {
-			setRightReelSymbols(symbols);
+            setRightReelSymbols(symbols);
           }}
         />
       </div>
@@ -165,10 +173,10 @@ export default function SlotMachine() {
           top: `${LEFT_REEL_BUTTON_POSITION.y.toString()}px`,
         }}
       >
-        <Clickable 
-          width={REEL_BUTTON_SIZE.width} 
-          height={REEL_BUTTON_SIZE.height} 
-          onClick={ stopLeftReel }
+        <Clickable
+          width={REEL_BUTTON_SIZE.width}
+          height={REEL_BUTTON_SIZE.height}
+          onClick={stopLeftReel}
         />
       </div>
 
@@ -179,10 +187,10 @@ export default function SlotMachine() {
           top: `${MIDDLE_REEL_BUTTON_POSITION.y.toString()}px`,
         }}
       >
-        <Clickable 
-          width={REEL_BUTTON_SIZE.width} 
-          height={REEL_BUTTON_SIZE.height} 
-          onClick={ stopMiddleReel }
+        <Clickable
+          width={REEL_BUTTON_SIZE.width}
+          height={REEL_BUTTON_SIZE.height}
+          onClick={stopMiddleReel}
         />
       </div>
 
@@ -193,10 +201,10 @@ export default function SlotMachine() {
           top: `${RIGHT_REEL_BUTTON_POSITION.y.toString()}px`,
         }}
       >
-        <Clickable 
-          width={REEL_BUTTON_SIZE.width} 
-          height={REEL_BUTTON_SIZE.height} 
-          onClick={ stopRightReel }
+        <Clickable
+          width={REEL_BUTTON_SIZE.width}
+          height={REEL_BUTTON_SIZE.height}
+          onClick={stopRightReel}
         />
       </div>
 
@@ -207,10 +215,10 @@ export default function SlotMachine() {
           top: `${INSERT_COIN_BUTTON_POSITION.y.toString()}px`,
         }}
       >
-        <Clickable 
-          width={INSERT_COIN_BUTTON_SIZE.width} 
+        <Clickable
+          width={INSERT_COIN_BUTTON_SIZE.width}
           height={INSERT_COIN_BUTTON_SIZE.height}
-		  onClick={insertCoin}
+          onClick={insertCoin}
         />
       </div>
 
@@ -221,13 +229,13 @@ export default function SlotMachine() {
           top: `${SPIN_BUTTON_POSITION.y.toString()}px`,
         }}
       >
-        <Clickable 
-          width={SPIN_BUTTON_SIZE.width} 
+        <Clickable
+          width={SPIN_BUTTON_SIZE.width}
           height={SPIN_BUTTON_SIZE.height}
-		  onClick={spinReels}
+          onClick={spinReels}
         />
       </div>
-      
+
       {/* Lights */}
       <LightShine ref={lightShineRef} />
     </div>

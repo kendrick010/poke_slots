@@ -6,10 +6,10 @@ import replay from "./replay.png";
 import thunder_stone from "./thunder_stone.png";
 
 export default {
-    galatic,
-    lucky,
-    pikachu,
-    pokeballs,
-    replay,
-    thunder_stone
+  galatic,
+  lucky,
+  pikachu,
+  pokeballs,
+  replay,
+  thunder_stone,
 };

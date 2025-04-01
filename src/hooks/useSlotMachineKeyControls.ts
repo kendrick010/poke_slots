@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 type SlotMachineKeyControls = {
   stopLeftReel: () => void;
@@ -12,26 +12,27 @@ export const useSlotMachineKeyControls = (controls: SlotMachineKeyControls) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key.toLowerCase()) {
-        case 'a':
+        case "a":
           controls.stopLeftReel();
           break;
-        case 's':
+        case "s":
           controls.stopMiddleReel();
           break;
-        case 'd':
+        case "d":
           controls.stopRightReel();
           break;
-        case 'arrowdown':
+        case "arrowdown":
           controls.spinReels();
           break;
-        case 'x':
+        case "x":
           controls.insertCoin();
           break;
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => { window.removeEventListener('keydown', handleKeyDown); }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [controls]);
 };
-

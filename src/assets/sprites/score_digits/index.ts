@@ -11,15 +11,15 @@ import two from "./two.png";
 import zero from "./zero.png";
 
 export default {
-    empty,
-    zero,
-    one,
-    two,
-    three,
-    four,
-    five,
-    six,
-    seven,
-    eight,
-    nine
+  empty,
+  zero,
+  one,
+  two,
+  three,
+  four,
+  five,
+  six,
+  seven,
+  eight,
+  nine,
 };
