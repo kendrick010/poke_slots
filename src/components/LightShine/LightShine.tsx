@@ -1,21 +1,33 @@
-import lights from "@assets/sprites/lights.png";
+import { forwardRef, useImperativeHandle, useState } from "react";
 
-type LightShineProps = {
-    firstToggled: boolean,
-    secondToggled: boolean,
-    thirdToggled: boolean,
-    fourthToggled: boolean,
-};
+import {
+    AllOffPattern,
+    AllOnPattern,
+    toggleTopRow,
+    toggleMiddleRow,
+    toggleBottomRow,
+    toggleLeftDiagonal,
+    toggleRightDiagonal,
+    toggleIdle,
+    LightShineRef
+} from "./lightPatterns";
 
-export default function LightShine({
-    firstToggled=false,
-    secondToggled=false,
-    thirdToggled=false,
-    fourthToggled=false
-} : LightShineProps) {
-    return (
-        <div>
+const LightShine = forwardRef<LightShineRef>(function LightShine(props, ref) {
+    const [currentFlash, setCurrentFlash] = useState(toggleIdle);
 
-        </div>
-    );
-}
+    // Expose methods via ref
+    useImperativeHandle(ref, () => ({
+        showTopRow: () => { setCurrentFlash(toggleTopRow) }, 
+        showMiddleRow: () => { setCurrentFlash(toggleMiddleRow) },
+        showBottomRow: () => { setCurrentFlash(toggleBottomRow) },
+        showLeftDiagonal: () => { setCurrentFlash(toggleLeftDiagonal) },
+        showRightDiagonal: () => { setCurrentFlash(toggleRightDiagonal) },
+        showAllON: () => { setCurrentFlash(AllOnPattern) },
+        showAllOFF: () => { setCurrentFlash(AllOffPattern) },
+        showIdle: () => { setCurrentFlash(toggleIdle) }
+    }));
+
+    return currentFlash;
+});
+
+export default LightShine;

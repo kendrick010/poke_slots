@@ -23,7 +23,8 @@
       "@customtypes/*": ["src/types/*"],
       "@assets/*": ["src/assets/*"],
       "@utils/*": ["src/utils/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"]
     }
   },
   "include": ["src", "vite.config.ts", "postcss.config.js"],

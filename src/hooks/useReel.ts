@@ -1,6 +1,6 @@
 import {
   SYMBOLS,
-  SYMBOL_HEIGHT,
+  SYMBOL_SIZE,
   VISIBLE_SPRITES,
 } from "@components/Reel/reelConfig";
 import { shuffle } from "@utils/shuffle";
@@ -25,7 +25,7 @@ export const useReel = (onStop?: (visibleSymbols: string[]) => void) => {
     const newSprites = initializeSprites();
     setIsSpinning(true);
     setStopPosition(
-      Math.floor(Math.random() * newSprites.length) * SYMBOL_HEIGHT,
+      Math.floor(Math.random() * newSprites.length) * SYMBOL_SIZE.height,
     );
   };
 
@@ -36,7 +36,7 @@ export const useReel = (onStop?: (visibleSymbols: string[]) => void) => {
     const spriteCount = sprites.length / 2;
 
     for (let i = 0; i < VISIBLE_SPRITES; i++) {
-      const pos = Math.floor((stopPosition / SYMBOL_HEIGHT + i) % spriteCount);
+      const pos = Math.floor((stopPosition / SYMBOL_SIZE.height + i) % spriteCount);
       visibleIndices.push(pos);
     }
 

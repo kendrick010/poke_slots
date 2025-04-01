@@ -1,37 +1,28 @@
-import eight from "@assets/sprites/digits/eight.png";
-import empty from "@assets/sprites/digits/empty.png";
-import five from "@assets/sprites/digits/five.png";
-import four from "@assets/sprites/digits/four.png";
-import nine from "@assets/sprites/digits/nine.png";
-import one from "@assets/sprites/digits/one.png";
-import seven from "@assets/sprites/digits/seven.png";
-import six from "@assets/sprites/digits/six.png";
-import three from "@assets/sprites/digits/three.png";
-import two from "@assets/sprites/digits/two.png";
-import zero from "@assets/sprites/digits/zero.png";
+import score_digits from "@assets/sprites/score_digits";
+import { Size } from "@customtypes/Size";
 
-export const SCORE_SCREEN_SIZE = {
+export const SCORE_SCREEN_SIZE: Size = {
   width: 38,
   height: 7,
 };
 
-export const DIGIT_SIZE = {
+export const DIGIT_SIZE: Size = {
   width: 6,
   height: 7,
 };
 
 export const DIGITS: Record<string, string> = {
-  "": empty,
-  "0": zero,
-  "1": one,
-  "2": two,
-  "3": three,
-  "4": four,
-  "5": five,
-  "6": six,
-  "7": seven,
-  "8": eight,
-  "9": nine,
+  "": score_digits.empty,
+  "0": score_digits.zero,
+  "1": score_digits.one,
+  "2": score_digits.two,
+  "3": score_digits.three,
+  "4": score_digits.four,
+  "5": score_digits.five,
+  "6": score_digits.six,
+  "7": score_digits.seven,
+  "8": score_digits.eight,
+  "9": score_digits.nine,
 };
 
-export const EMPTY_DIGIT = empty;
+export const EMPTY_DIGIT = score_digits.empty;

@@ -1,24 +1,42 @@
-import galatic from "@assets/sprites/symbols/galactic.png";
-import lucky from "@assets/sprites/symbols/lucky.png";
-import pikachu from "@assets/sprites/symbols/pikachu.png";
-import pokeballs from "@assets/sprites/symbols/pokeballs.png";
-import replay from "@assets/sprites/symbols/replay.png";
-import thunder_stone from "@assets/sprites/symbols/thunder_stone.png";
+import symbols from "@assets/sprites/symbols";
+import { Position } from "@customtypes/Position";
+import { Size } from "@customtypes/Size";
 
-export const SYMBOL_WIDTH = 52;
-export const SYMBOL_HEIGHT = 32;
-export const REEL_WIDTH = 52;
-export const REEL_HEIGHT = 96;
+export const SYMBOL_SIZE: Size = {
+  width: 52,
+  height: 32
+};
+
+export const REEL_SIZE: Size = {
+  width: 52,
+  height: 96
+};
+
+export const REEL_EDGE_SIZE: Size = {
+  width: 52,
+  height: 8
+};
+
+export const REEL_TOP_EDGE: Position = {
+  x: 0,
+  y: 0
+};
+
+export const REEL_BOTTOM_EDGE: Position = {
+  x: 0,
+  y: 88
+};
+
 export const SPIN_DURATION = 0.3;
 export const VISIBLE_SPRITES = 3;
 
 export const SYMBOLS = [
-  galatic,
-  lucky,
-  pikachu,
-  pokeballs,
-  replay,
-  thunder_stone,
+  symbols.galatic,
+  symbols.lucky,
+  symbols.pikachu,
+  symbols.pokeballs,
+  symbols.replay,
+  symbols.thunder_stone,
 ];
 
 export type ReelRef = {
