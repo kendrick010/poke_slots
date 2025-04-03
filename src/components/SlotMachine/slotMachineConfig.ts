@@ -1,6 +1,8 @@
 import { Position } from "@customtypes/Position";
 import { Size } from "@customtypes/Size";
 
+export const COINS_TO_PLAY = 1;
+
 export const SLOT_MACHINE_SIZE: Size = {
   width: 256,
   height: 192,

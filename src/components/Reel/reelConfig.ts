@@ -42,4 +42,6 @@ export const SYMBOLS = [
 export type ReelRef = {
   startSpin: () => void;
   stopSpin: () => void;
+  isSpinning: () => boolean;
+  getSymbols: () => string[];
 };

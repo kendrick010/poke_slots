@@ -9,19 +9,30 @@ import {
   ReelRef,
   SPIN_DURATION,
   SYMBOL_SIZE,
+  VISIBLE_SPRITES,
 } from "./reelConfig";
 import "@styles/reel.css";
 
-const Reel = forwardRef<
-  ReelRef,
-  { onStop?: (visibleSymbols: string[]) => void }
->(({ onStop }, ref) => {
-  const { isSpinning, stopPosition, sprites, startSpin, stopSpin } =
-    useReel(onStop);
+const Reel = forwardRef<ReelRef>((_, ref) => {
+  const { isSpinning, stopPosition, sprites, startSpin, stopSpin } = useReel();
 
   useImperativeHandle(ref, () => ({
     startSpin,
     stopSpin,
+    isSpinning: () => isSpinning,
+    getSymbols: () => {
+      const visibleIndices = [];
+      const spriteCount = sprites.length / 2;
+  
+      for (let i = 0; i < VISIBLE_SPRITES; i++) {
+        const pos = Math.floor(
+          (stopPosition / SYMBOL_SIZE.height + i) % spriteCount,
+        );
+        visibleIndices.push(pos);
+      }
+  
+      return visibleIndices.map((idx) => sprites[idx]);
+    }
   }));
 
   return (
