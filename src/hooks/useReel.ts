@@ -1,7 +1,4 @@
-import {
-  SYMBOLS,
-  SYMBOL_SIZE,
-} from "@components/Reel/reelConfig";
+import { SYMBOLS, SYMBOL_SIZE } from "@components/Reel/reelConfig";
 import { shuffle } from "@utils/shuffle";
 import { useEffect, useState } from "react";
 
@@ -9,6 +6,7 @@ export const useReel = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [stopPosition, setStopPosition] = useState(0);
   const [sprites, setSprites] = useState<string[]>([]);
+  const [hasJiggle, setHasJiggle] = useState(false);
 
   const initializeSprites = () => {
     const shuffled = shuffle(SYMBOLS);
@@ -31,7 +29,16 @@ export const useReel = () => {
   };
 
   const stopSpin = () => {
-    if (isSpinning) setIsSpinning(false);
+    if (isSpinning) {
+      setIsSpinning(false);
+
+      setTimeout(() => {
+        setHasJiggle(true);
+        setTimeout(() => {
+          setHasJiggle(false);
+        }, 300);
+      }, 50);
+    }
   };
 
   return {
@@ -40,5 +47,6 @@ export const useReel = () => {
     sprites,
     startSpin,
     stopSpin,
+    hasJiggle,
   };
 };

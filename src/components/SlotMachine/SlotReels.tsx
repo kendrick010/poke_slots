@@ -6,15 +6,15 @@ import { useRef, useState } from "react";
 
 import {
   COINS_TO_PLAY,
-  LEFT_REEL_BUTTON_POSITION,
-  MIDDLE_REEL_BUTTON_POSITION,
-  RIGHT_REEL_BUTTON_POSITION,
-  LEFT_REEL_POSITION,
-  MIDDLE_REEL_POSITION,
-  RIGHT_REEL_POSITION,
-  REEL_BUTTON_SIZE,
   INSERT_COIN_BUTTON_POSITION,
   INSERT_COIN_BUTTON_SIZE,
+  LEFT_REEL_BUTTON_POSITION,
+  LEFT_REEL_POSITION,
+  MIDDLE_REEL_BUTTON_POSITION,
+  MIDDLE_REEL_POSITION,
+  REEL_BUTTON_SIZE,
+  RIGHT_REEL_BUTTON_POSITION,
+  RIGHT_REEL_POSITION,
   SPIN_BUTTON_POSITION,
   SPIN_BUTTON_SIZE,
 } from "./slotMachineConfig";
@@ -26,7 +26,7 @@ type SlotReelsProps = {
   onLeftReelStop: (symbols: string[]) => void;
   onMiddleReelStop: (symbols: string[]) => void;
   onRightReelStop: (symbols: string[]) => void;
-}
+};
 
 export default function SlotReels({
   coinCredit,
@@ -34,8 +34,8 @@ export default function SlotReels({
   onSpinStart,
   onLeftReelStop,
   onMiddleReelStop,
-  onRightReelStop
-} : SlotReelsProps) {
+  onRightReelStop,
+}: SlotReelsProps) {
   const leftReelRef = useRef<ReelRef>(null);
   const middleReelRef = useRef<ReelRef>(null);
   const rightReelRef = useRef<ReelRef>(null);
@@ -99,9 +99,7 @@ export default function SlotReels({
           top: `${LEFT_REEL_POSITION.y.toString()}px`,
         }}
       >
-        <Reel
-          ref={leftReelRef}
-        />
+        <Reel ref={leftReelRef} />
       </div>
       <div
         style={{
@@ -110,9 +108,7 @@ export default function SlotReels({
           top: `${MIDDLE_REEL_POSITION.y.toString()}px`,
         }}
       >
-        <Reel
-          ref={middleReelRef}
-        />
+        <Reel ref={middleReelRef} />
       </div>
       <div
         style={{
@@ -121,9 +117,7 @@ export default function SlotReels({
           top: `${RIGHT_REEL_POSITION.y.toString()}px`,
         }}
       >
-        <Reel
-          ref={rightReelRef}
-        />
+        <Reel ref={rightReelRef} />
       </div>
 
       {/* Reel Buttons */}

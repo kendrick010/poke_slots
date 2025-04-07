@@ -27,12 +27,17 @@ export default function SlotMachine() {
   };
 
   useEffect(() => {
-    if (leftReelSymbols && middleReelSymbols && rightReelSymbols && !allReelsStopped) {
+    if (
+      leftReelSymbols &&
+      middleReelSymbols &&
+      rightReelSymbols &&
+      !allReelsStopped
+    ) {
       setAllReelsStopped(true);
-      console.log('Reel symbols updated:', {
+      console.log("Reel symbols updated:", {
         left: leftReelSymbols,
         middle: middleReelSymbols,
-        right: rightReelSymbols
+        right: rightReelSymbols,
       });
     }
   }, [leftReelSymbols, middleReelSymbols, rightReelSymbols]);
