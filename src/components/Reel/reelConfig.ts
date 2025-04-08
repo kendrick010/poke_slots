@@ -30,14 +30,14 @@ export const REEL_BOTTOM_EDGE: Position = {
 export const SPIN_DURATION = 0.3;
 export const VISIBLE_SPRITES = 3;
 
-export const SYMBOLS = [
-  symbols.galatic,
-  symbols.lucky,
-  symbols.pikachu,
-  symbols.pokeballs,
-  symbols.replay,
-  symbols.thunder_stone,
-];
+export const SYMBOLS: Record<string, number> = {
+  [symbols.galatic]: 100,
+  [symbols.lucky]: 100,
+  [symbols.pikachu]: 10,
+  [symbols.pokeballs]: 2,
+  [symbols.replay]: 15,
+  [symbols.thunder_stone]: 15,
+};
 
 export type ReelRef = {
   startSpin: () => void;

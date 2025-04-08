@@ -69,13 +69,13 @@ const Reel = forwardRef<ReelRef>((_, ref) => {
               : "none",
           }}
         >
-          {sprites.map((url, index) => (
+          {sprites.map((spriteUrl, index) => (
             <div
-              key={`${index.toString()}-${url}`}
+              key={`${index.toString()}-${spriteUrl}`}
               className="reel-sprite"
               style={{
                 height: `${SYMBOL_SIZE.height.toString()}px`,
-                backgroundImage: `url(${url})`,
+                backgroundImage: `url(${spriteUrl})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",

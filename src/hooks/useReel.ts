@@ -9,7 +9,7 @@ export const useReel = () => {
   const [hasJiggle, setHasJiggle] = useState(false);
 
   const initializeSprites = () => {
-    const shuffled = shuffle(SYMBOLS);
+    const shuffled = shuffle(Object.keys(SYMBOLS));
     setSprites([...shuffled, ...shuffled]);
     return shuffled;
   };
