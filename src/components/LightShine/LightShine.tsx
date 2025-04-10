@@ -12,7 +12,7 @@ import {
   toggleTopRow,
 } from "./lightPatterns";
 
-const LightShine = forwardRef<LightShineRef>(function LightShine(props, ref) {
+const LightShine = forwardRef<LightShineRef>(function LightShine(_, ref) {
   const [currentFlash, setCurrentFlash] = useState(toggleIdle);
 
   // Expose methods via ref

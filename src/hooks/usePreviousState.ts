@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-export function usePreviousState<T>(initialValue: T): [T, React.Dispatch<React.SetStateAction<T>>, T] {
+export function usePreviousState<T>(
+  initialValue: T,
+): [T, React.Dispatch<React.SetStateAction<T>>, T] {
   const [state, setState] = useState<T>(initialValue);
   const prevRef = useRef<T>(initialValue);
 

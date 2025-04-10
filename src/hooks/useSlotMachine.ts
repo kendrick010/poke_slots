@@ -1,30 +1,47 @@
 import { SYMBOLS } from "@components/Reel/reelConfig";
+import { usePreviousState } from "@hooks/usePreviousState";
 import { allElementsSame } from "@utils/allElementsSame";
-import { usePreviousState } from "@utils/usePreviousState";
 import { useEffect, useState } from "react";
 
 const emptySymbols: string[] = [];
 
-const calculateWin = (reels: string[][]): number => {
-	const [left, middle, right] = reels;
-	let totalWin = 0;
+const calculateWin = (reels: string[][]): { amount: number; lines: string[] } => {
+  const [left, middle, right] = reels;
+  let totalWin = 0;
+  const winningLines: string[] = [];
 
-	// Check top, middle, bottom rows
-	totalWin += allElementsSame([left[0], middle[0], right[0]]) ? SYMBOLS[left[0]] : 0;
-	totalWin += allElementsSame([left[1], middle[1], right[1]]) ? SYMBOLS[left[1]] : 0;
-	totalWin += allElementsSame([left[2], middle[2], right[2]]) ? SYMBOLS[left[3]] : 0;
+  // Check top, middle, bottom rows
+  if (allElementsSame([left[0], middle[0], right[0]])) {
+    totalWin += SYMBOLS[left[0]];
+    winningLines.push('topRow');
+  }
+  if (allElementsSame([left[1], middle[1], right[1]])) {
+    totalWin += SYMBOLS[left[1]];
+    winningLines.push('middleRow');
+  }
+  if (allElementsSame([left[2], middle[2], right[2]])) {
+    totalWin += SYMBOLS[left[2]];
+    winningLines.push('bottomRow');
+  }
 
-	// Check diagonals
-	totalWin += allElementsSame([left[0], middle[1], right[2]]) ? SYMBOLS[left[0]] : 0;
-	totalWin += allElementsSame([left[2], middle[1], right[0]]) ? SYMBOLS[left[2]] : 0;
+  // Check diagonals
+  if (allElementsSame([left[0], middle[1], right[2]])) {
+    totalWin += SYMBOLS[left[0]];
+    winningLines.push('leftDiagonal');
+  }
+  if (allElementsSame([left[2], middle[1], right[0]])) {
+    totalWin += SYMBOLS[left[2]];
+    winningLines.push('rightDiagonal');
+  }
 
-	return totalWin;
+  return { amount: totalWin, lines: winningLines };
 };
 
 export function useSlotMachine() {
   const [leftReelSymbols, setLeftReelSymbols] = useState<string[]>();
   const [middleReelSymbols, setMiddleReelSymbols] = useState<string[]>();
   const [rightReelSymbols, setRightReelSymbols] = useState<string[]>();
+  const [winningLines, setWinningLines] = useState<string[]>([]);
 
   const [coinCredit, setCoinCredit, prevousCoinCredit] = usePreviousState(25);
   const [payout, setPayout, prevousPayout] = usePreviousState(0);
@@ -36,16 +53,23 @@ export function useSlotMachine() {
       middleReelSymbols?.length &&
       rightReelSymbols?.length
     ) {
-			const winAmount = calculateWin([leftReelSymbols, middleReelSymbols, rightReelSymbols]);
-			console.log(winAmount);
-			setPayout(payout + winAmount);
+      const { amount, lines } = calculateWin([
+        leftReelSymbols,
+        middleReelSymbols,
+        rightReelSymbols,
+      ]);
+
+      setPayout(payout + amount);
+      setWinningLines(lines);
+    } else {
+      setWinningLines([]);
     }
   }, [leftReelSymbols, middleReelSymbols, rightReelSymbols]);
 
   const handleSpinStart = () => {
-		setLeftReelSymbols(emptySymbols);
-		setMiddleReelSymbols(emptySymbols);
-		setRightReelSymbols(emptySymbols);
+    setLeftReelSymbols(emptySymbols);
+    setMiddleReelSymbols(emptySymbols);
+    setRightReelSymbols(emptySymbols);
   };
 
   return {
@@ -53,10 +77,11 @@ export function useSlotMachine() {
     setMiddleReelSymbols,
     setRightReelSymbols,
     payout,
-		prevousPayout,
+    prevousPayout,
     coinCredit,
-		setCoinCredit,
-		prevousCoinCredit,
+    setCoinCredit,
+    prevousCoinCredit,
     handleSpinStart,
+    winningLines,
   };
 }

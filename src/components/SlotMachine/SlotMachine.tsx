@@ -3,7 +3,7 @@ import LightShine from "@components/LightShine/LightShine";
 import { LightShineRef } from "@components/LightShine/lightPatterns";
 import ScoreScreen from "@components/ScoreScreen/ScoreScreen";
 import { useSlotMachine } from "@hooks/useSlotMachine";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import SlotReels from "./SlotReels";
 import {
@@ -14,24 +14,48 @@ import {
 
 export default function SlotMachine() {
   const lightShineRef = useRef<LightShineRef>(null);
-
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // prevent clicking or playing on win (and on count)
-  // flash light based on winning row
   // music integration
 
-  
   const {
     setLeftReelSymbols,
     setMiddleReelSymbols,
     setRightReelSymbols,
     payout,
-		prevousPayout,
+    prevousPayout,
     coinCredit,
-		setCoinCredit,
-		prevousCoinCredit,
+    setCoinCredit,
+    prevousCoinCredit,
     handleSpinStart,
+    winningLines,
   } = useSlotMachine();
+
+  // Flash winning
+  useEffect(() => {
+    if (winningLines.length > 0) {
+      winningLines.forEach(line => {
+        switch(line) {
+          case 'topRow': lightShineRef.current?.showTopRow(); break;
+          case 'middleRow': lightShineRef.current?.showMiddleRow(); break;
+          case 'bottomRow': lightShineRef.current?.showBottomRow(); break;
+          case 'leftDiagonal': lightShineRef.current?.showLeftDiagonal(); break;
+          case 'rightDiagonal': lightShineRef.current?.showRightDiagonal(); break;
+        }
+      });
+  
+      timerRef.current = setTimeout(() => {
+        lightShineRef.current?.showIdle();
+      }, 3000);
+    }
+  
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [winningLines]);
 
   return (
     <div

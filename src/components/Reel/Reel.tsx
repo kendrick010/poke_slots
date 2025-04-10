@@ -14,14 +14,8 @@ import {
 import "@styles/reel.css";
 
 const Reel = forwardRef<ReelRef>((_, ref) => {
-  const {
-    isSpinning,
-    stopPosition,
-    sprites,
-    startSpin,
-    stopSpin,
-    hasJiggle,
-  } = useReel();
+  const { isSpinning, stopPosition, sprites, startSpin, stopSpin, hasJiggle } =
+    useReel();
 
   useImperativeHandle(ref, () => ({
     startSpin,
@@ -87,15 +81,15 @@ const Reel = forwardRef<ReelRef>((_, ref) => {
 
       {/* Gradient shadow styling effect */}
       <div
-          className="bg-gradient-to-b from-black/50 via-black/10 to-transparent"
-          style={{
-            position: "absolute",
-            left: `${REEL_TOP_EDGE.x.toString()}px`,
-            top: `${REEL_TOP_EDGE.y.toString()}px`,
-            width: `${REEL_EDGE_SIZE.width.toString()}px`,
-            height: `${REEL_EDGE_SIZE.height.toString()}px`,
-          }}
-        />
+        className="bg-gradient-to-b from-black/50 via-black/10 to-transparent"
+        style={{
+          position: "absolute",
+          left: `${REEL_TOP_EDGE.x.toString()}px`,
+          top: `${REEL_TOP_EDGE.y.toString()}px`,
+          width: `${REEL_EDGE_SIZE.width.toString()}px`,
+          height: `${REEL_EDGE_SIZE.height.toString()}px`,
+        }}
+      />
       <div
         className="bg-gradient-to-t from-black/50 via-black/10 to-transparent"
         style={{

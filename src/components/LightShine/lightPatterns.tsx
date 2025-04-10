@@ -129,13 +129,15 @@ function RightDiagonalPattern() {
 
 type CycleTogglesProps = {
   patterns: ReactNode[];
-  delay?: number;
+  delay: number;
 };
 
-function CyclePatterns({ patterns, delay = 750 }: CycleTogglesProps) {
+function CyclePatterns({ patterns, delay }: CycleTogglesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    if (patterns.length === 0) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % patterns.length);
     }, delay);
@@ -143,10 +145,13 @@ function CyclePatterns({ patterns, delay = 750 }: CycleTogglesProps) {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [patterns, delay]);
 
   return (
-    <div key={currentIndex} className="fade">
+    <div 
+      key={currentIndex}
+      style={{ animation: `dimEffect ${(delay*0.001).toString()}s ease-in-out` }}
+    >
       {patterns[currentIndex]}
     </div>
   );
@@ -168,19 +173,11 @@ export function AllOnPattern() {
   );
 }
 
-export const toggleTopRow = <CyclePatterns patterns={[<TopRowPattern />]} />;
-export const toggleMiddleRow = (
-  <CyclePatterns patterns={[<MiddleRowPattern />]} />
-);
-export const toggleBottomRow = (
-  <CyclePatterns patterns={[<BottomRowPattern />]} />
-);
-export const toggleLeftDiagonal = (
-  <CyclePatterns patterns={[<LeftDiagonalPattern />]} />
-);
-export const toggleRightDiagonal = (
-  <CyclePatterns patterns={[<RightDiagonalPattern />]} />
-);
+export const toggleTopRow = <CyclePatterns patterns={[<TopRowPattern />, <AllOffPattern />]} delay={200} />;
+export const toggleMiddleRow = <CyclePatterns patterns={[<MiddleRowPattern />, <AllOffPattern />]} delay={200} />;
+export const toggleBottomRow = <CyclePatterns patterns={[<BottomRowPattern />, <AllOffPattern />]} delay={200} />;
+export const toggleLeftDiagonal = <CyclePatterns patterns={[<LeftDiagonalPattern />, <AllOffPattern />]} delay={200} />;
+export const toggleRightDiagonal = <CyclePatterns patterns={[<RightDiagonalPattern />,  <AllOffPattern />]} delay={200} />;
 
 const idlePattern = [
   <div>
@@ -197,7 +194,7 @@ const idlePattern = [
     <BottomRowPattern key="bottomRow" />
   </div>,
 ];
-export const toggleIdle = <CyclePatterns patterns={idlePattern} />;
+export const toggleIdle = <CyclePatterns patterns={idlePattern} delay={1000} />;
 
 export type LightShineRef = {
   showTopRow: () => void;

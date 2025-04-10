@@ -24,7 +24,8 @@
       "@assets/*": ["src/assets/*"],
       "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
-      "@types/*": ["src/types/*"]
+      "@types/*": ["src/types/*"],
+      "@contexts/*": ["src/contexts/*"]
     }
   },
   "include": ["src", "vite.config.ts", "postcss.config.js"],
