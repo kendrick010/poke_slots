@@ -1,4 +1,6 @@
+import { useAudio } from "@contexts/AudioContext";
 import { getDigitString } from "@utils/getDigitString";
+import { playAudio } from "@utils/playAudio";
 import { useEffect, useRef, useState } from "react";
 
 import Digit from "./Digit";
@@ -7,20 +9,30 @@ import { SCORE_SCREEN_SIZE } from "./scoreScreenConfig";
 type ScoreScreenProps = {
   startValue: number;
   endValue: number;
+  audioSrc?: string;
+  onCountingChange?: (isCounting: boolean) => void;
 };
 
 export default function ScoreScreen({
   startValue,
   endValue,
+  audioSrc,
+  onCountingChange,
 }: ScoreScreenProps) {
+  const { isMuted } = useAudio();
   const [currentDigits, setCurrentDigits] = useState<string[]>(
     getDigitString(startValue),
   );
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const delay = 150;
+  const delay = 140;
 
   useEffect(() => {
-    if (startValue === endValue) return;
+    if (startValue === endValue) {
+      onCountingChange?.(false);
+      return;
+    }
+
+    onCountingChange?.(true);
 
     const increment = endValue > startValue ? 1 : -1;
     let currentValue = startValue;
@@ -35,7 +47,10 @@ export default function ScoreScreen({
         ),
       );
 
+      if (!isMuted && audioSrc) playAudio(audioSrc);
+
       if (currentValue === endValue) {
+        onCountingChange?.(false);
         clearInterval(timerRef.current!);
         timerRef.current = null;
       }
@@ -43,11 +58,12 @@ export default function ScoreScreen({
 
     return () => {
       if (timerRef.current) {
+        onCountingChange?.(false);
         clearInterval(timerRef.current);
         timerRef.current = null;
       }
     };
-  }, [endValue]);
+  }, [endValue, isMuted]);
 
   return (
     <div

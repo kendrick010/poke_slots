@@ -1,7 +1,9 @@
 import Clickable from "@components/Clickable";
 import Reel from "@components/Reel/Reel";
 import { ReelRef } from "@components/Reel/reelConfig";
+import { useAudio } from "@contexts/AudioContext";
 import { useSlotMachineKeyControls } from "@hooks/useSlotMachineKeyControls";
+import { playAudio } from "@utils/playAudio";
 import { useRef, useState } from "react";
 
 import {
@@ -21,6 +23,8 @@ import {
 
 type SlotReelsProps = {
   coinCredit: number;
+  startAudioSrc?: string;
+  stopAudioSrc?: string;
   onCoinChange: (newCoinBalance: number) => void;
   onSpinStart: () => void;
   onLeftReelStop: (symbols: string[]) => void;
@@ -30,12 +34,16 @@ type SlotReelsProps = {
 
 export default function SlotReels({
   coinCredit,
+  startAudioSrc,
+  stopAudioSrc,
   onCoinChange,
   onSpinStart,
   onLeftReelStop,
   onMiddleReelStop,
   onRightReelStop,
 }: SlotReelsProps) {
+  const { isMuted } = useAudio();
+
   const leftReelRef = useRef<ReelRef>(null);
   const middleReelRef = useRef<ReelRef>(null);
   const rightReelRef = useRef<ReelRef>(null);
@@ -45,16 +53,19 @@ export default function SlotReels({
   const stopLeftReel = () => {
     leftReelRef.current?.stopSpin();
     onLeftReelStop(leftReelRef.current?.getSymbols() ?? []);
+    if (!isMuted && stopAudioSrc) playAudio(stopAudioSrc);
   };
 
   const stopMiddleReel = () => {
     middleReelRef.current?.stopSpin();
     onMiddleReelStop(middleReelRef.current?.getSymbols() ?? []);
+    if (!isMuted && stopAudioSrc) playAudio(stopAudioSrc);
   };
 
   const stopRightReel = () => {
     rightReelRef.current?.stopSpin();
     onRightReelStop(rightReelRef.current?.getSymbols() ?? []);
+    if (!isMuted && stopAudioSrc) playAudio(stopAudioSrc);
   };
 
   const spinReels = () => {
@@ -64,6 +75,8 @@ export default function SlotReels({
       rightReelRef.current?.startSpin();
 
       setStartSpin(false);
+
+      if (!isMuted && startAudioSrc) playAudio(startAudioSrc);
     }
   };
 

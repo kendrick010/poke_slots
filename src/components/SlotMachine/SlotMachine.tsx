@@ -1,9 +1,11 @@
+import sfx from "@assets/audio"
 import slot_machine from "@assets/sprites/slot_machine.png";
 import LightShine from "@components/LightShine/LightShine";
 import { LightShineRef } from "@components/LightShine/lightPatterns";
 import ScoreScreen from "@components/ScoreScreen/ScoreScreen";
+import { useInteractionBlock } from "@hooks/useInteractionBlock";
 import { useSlotMachine } from "@hooks/useSlotMachine";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import SlotReels from "./SlotReels";
 import {
@@ -16,8 +18,8 @@ export default function SlotMachine() {
   const lightShineRef = useRef<LightShineRef>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // prevent clicking or playing on win (and on count)
-  // music integration
+  const [isCounting, setIsCounting] = useState(false);
+  useInteractionBlock(isCounting);
 
   const {
     setLeftReelSymbols,
@@ -53,6 +55,7 @@ export default function SlotMachine() {
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
+        timerRef.current = null;
       }
     };
   }, [winningLines]);
@@ -77,7 +80,11 @@ export default function SlotMachine() {
           top: `${CREDIT_SCREEN_POSITION.y.toString()}px`,
         }}
       >
-        <ScoreScreen startValue={prevousCoinCredit} endValue={coinCredit} />
+        <ScoreScreen 
+          startValue={prevousCoinCredit} 
+          endValue={coinCredit} 
+          audioSrc={sfx.insert}
+        />
       </div>
       <div
         style={{
@@ -86,12 +93,19 @@ export default function SlotMachine() {
           top: `${PAYOUT_SCREEN_POSITION.y.toString()}px`,
         }}
       >
-        <ScoreScreen startValue={prevousPayout} endValue={payout} />
+        <ScoreScreen 
+          startValue={prevousPayout} 
+          endValue={payout} 
+          audioSrc={sfx.tick}
+          onCountingChange={setIsCounting}
+        />
       </div>
 
       {/* Reels component */}
       <SlotReels
         coinCredit={coinCredit}
+        startAudioSrc={sfx.start}
+        stopAudioSrc={sfx.stop}
         onCoinChange={setCoinCredit}
         onSpinStart={handleSpinStart}
         onLeftReelStop={setLeftReelSymbols}

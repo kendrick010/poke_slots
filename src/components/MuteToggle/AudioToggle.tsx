@@ -1,7 +1,7 @@
 import { useAudio } from '@contexts/AudioContext';
 import { FaVolumeHigh, FaVolumeXmark } from 'react-icons/fa6';
 
-export default function AudioToggle() {
+export default function MuteToggle() {
   const { isMuted, toggleMute } = useAudio();
 
   return (

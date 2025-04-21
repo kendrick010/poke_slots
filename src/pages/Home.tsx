@@ -1,4 +1,4 @@
-import AudioToggle from "@components/AudioToggle/AudioToggle";
+import MuteToggle from "@components/MuteToggle/AudioToggle";
 import SlotMachine from "@components/SlotMachine/SlotMachine";
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
       <div className="relative flex items-start">
         <SlotMachine />
         <div className="ml-3">
-          <AudioToggle />
+          <MuteToggle />
         </div>
       </div>
     </div>

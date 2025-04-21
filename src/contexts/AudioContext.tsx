@@ -21,6 +21,7 @@ export function AudioProvider({ children, audioSrc }: AudioProviderProps) {
     if (!audioSrc) return;
 
     audioRef.current = new Audio(audioSrc);
+    audioRef.current.volume = 1.0;
     audioRef.current.loop = true;
     audioRef.current.muted = true;
 
