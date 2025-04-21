@@ -53,19 +53,19 @@ export default function SlotReels({
   const stopLeftReel = () => {
     leftReelRef.current?.stopSpin();
     onLeftReelStop(leftReelRef.current?.getSymbols() ?? []);
-    if (!isMuted && stopAudioSrc) playAudio(stopAudioSrc);
+    if (!isMuted && leftReelRef.current?.isSpinning() && stopAudioSrc) playAudio(stopAudioSrc);
   };
 
   const stopMiddleReel = () => {
     middleReelRef.current?.stopSpin();
     onMiddleReelStop(middleReelRef.current?.getSymbols() ?? []);
-    if (!isMuted && stopAudioSrc) playAudio(stopAudioSrc);
+    if (!isMuted && middleReelRef.current?.isSpinning() && stopAudioSrc) playAudio(stopAudioSrc);
   };
 
   const stopRightReel = () => {
     rightReelRef.current?.stopSpin();
     onRightReelStop(rightReelRef.current?.getSymbols() ?? []);
-    if (!isMuted && stopAudioSrc) playAudio(stopAudioSrc);
+    if (!isMuted && rightReelRef.current?.isSpinning() && stopAudioSrc) playAudio(stopAudioSrc);
   };
 
   const spinReels = () => {
